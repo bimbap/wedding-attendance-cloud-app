@@ -39,18 +39,16 @@ wedding-reception-cloud-app/
 │   ├── style.css                  # Responsive UI styling
 │   ├── app.js                     # Dynamic controller & API Gateway integration
 │   └── amplify.yml                # AWS Amplify Hosting build specification
-├── backend/                       # Serverless Lambda function
-│   ├── README.md                  # Lambda runtime & environment configuration instructions
-│   ├── .env.example               # Environment variable reference template
-│   ├── index.js                   # Node.js ESM handler (DynamoDB DocumentClient)
-│   ├── package.json               # Backend dependencies manifest
-│   └── layer/                     # Lambda Layer dependencies (@aws-sdk/client-dynamodb)
-│       ├── package.json
-│       ├── build-layer.sh
-│       ├── build-layer.ps1
-│       └── README.md
-└── infrastructure/                # Provisioning specifications
-    └── dynamodb-table.json        # DynamoDB table schema
+└── backend/                       # Serverless Lambda function
+    ├── README.md                  # Lambda runtime & environment configuration instructions
+    ├── .env.example               # Environment variable reference template
+    ├── index.js                   # Node.js ESM handler (DynamoDB DocumentClient)
+    ├── package.json               # Backend dependencies manifest
+    └── layer/                     # Lambda Layer dependencies (@aws-sdk/client-dynamodb)
+        ├── package.json
+        ├── build-layer.sh
+        ├── build-layer.ps1
+        └── README.md
 ```
 
 ---
