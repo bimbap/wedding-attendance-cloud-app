@@ -34,6 +34,7 @@ pr-wedding-attendance-app/
 │   ├── Wedding Attendance Architecture.png
 │   └── wedding-attendance.drawio
 ├── frontend/                      # Web application ready for AWS Amplify Hosting
+│   ├── README.md                  # Amplify deployment instructions
 │   ├── index.html                 # Wedding RSVP & digital guestbook
 │   ├── style.css                  # Responsive UI styling
 │   ├── app.js                     # Dynamic controller & API Gateway integration
@@ -43,15 +44,11 @@ pr-wedding-attendance-app/
 │   ├── .env.example               # Environment variable reference template
 │   ├── index.js                   # Node.js ESM handler (DynamoDB DocumentClient)
 │   ├── package.json               # Backend dependencies manifest
-│   ├── layer/                     # Lambda Layer dependencies (@aws-sdk/client-dynamodb)
-│   │   ├── package.json
-│   │   ├── build-layer.sh
-│   │   ├── build-layer.ps1
-│   │   └── README.md
-│   └── events/                    # Lambda Console test payloads
-│       ├── post-rsvp-valid.json
-│       ├── get-attendees.json
-│       └── options-cors.json
+│   └── layer/                     # Lambda Layer dependencies (@aws-sdk/client-dynamodb)
+│       ├── package.json
+│       ├── build-layer.sh
+│       ├── build-layer.ps1
+│       └── README.md
 └── infrastructure/                # Provisioning specifications
     └── dynamodb-table.json        # DynamoDB table schema
 ```
@@ -112,6 +109,5 @@ All endpoints (except `/health`) support preflight CORS options (`OPTIONS`).
 4. Deploy API to a new stage named **`prod`** and copy the Invoke URL.
 
 ### 5. AWS Amplify Hosting (`wa-amplify`)
-1. Compress files inside `frontend/` (`index.html`, `style.css`, `app.js`, `amplify.yml`) into a `.zip` archive.
-2. In AWS Amplify, choose **Deploy without Git provider**, set app name `wa-amplify`, and upload the zip.
-3. Open the public Amplify URL, click the gear icon (Configure API), and enter your API Gateway Invoke URL.
+Deploy the responsive frontend web application to AWS Amplify Hosting via archive upload (`wa-amplify`).  
+See [`frontend/README.md`](frontend/README.md) for step-by-step deployment and API connection instructions.
