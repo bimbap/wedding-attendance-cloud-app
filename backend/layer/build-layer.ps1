@@ -21,4 +21,3 @@ Write-Host "=== 4. Packaging layer into wa-layer.zip ===" -ForegroundColor Cyan
 Compress-Archive -Path "nodejs" -DestinationPath "wa-layer.zip" -Force
 
 Write-Host "=== Done! Layer package ready: wa-layer.zip ===" -ForegroundColor Green
-

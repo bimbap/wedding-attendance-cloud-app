@@ -2,18 +2,9 @@
   "name": "wa-backend",
   "version": "1.0.0",
   "type": "module",
-  "description": "AWS Lambda Serverless Backend for Wedding Attendance Application (Prefix: wa-)",
   "main": "index.js",
-  "engines": {
-    "node": ">=24.0.0"
-  },
-  "scripts": {
-    "test:local": "node ../infrastructure/test-local.js"
-  },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.500.0",
     "@aws-sdk/lib-dynamodb": "^3.500.0"
-  },
-  "author": "LKS Cloud Computing",
-  "license": "ISC"
+  }
 }

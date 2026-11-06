@@ -21,4 +21,3 @@ echo "=== 4. Packaging layer into wa-layer.zip ==="
 zip -r wa-layer.zip nodejs/
 
 echo "=== Done! Layer package ready: wa-layer.zip ==="
-
