@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding Guestbook & Attendance RSVP — The Wedding of Arya & Sarah</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Top Navigation & API Config Trigger -->
+    <header class="header-bar">
+      <div class="brand">
+        <span class="wedding-monogram">A & S</span>
+        <span class="brand-title">Wedding Reception</span>
+      </div>
+      <div class="api-status-wrapper">
+        <button class="btn-config" id="btn-open-config" title="Configure API Gateway">
+          <span class="pulse-dot" id="api-status-dot"></span>
+          <span id="api-status-text">Mode: Local Demo</span>
+          <svg class="icon-gear" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Header -->
+    <section class="hero-section">
+      <span class="sub-greeting">WEDDING CELEBRATION</span>
+      <h1 class="couple-names">Arya & Sarah</h1>
+      <p class="event-date">Saturday, November 14, 2026 · Grand Ballroom Sasana Budaya, Jakarta</p>
+      
+      <!-- Live Attendance HUD -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-num" id="stat-total-rsvp">0</span>
+          <span class="stat-label">Total Confirmed</span>
+        </div>
+        <div class="stat-card highlight">
+          <span class="stat-num" id="stat-total-hadir">0</span>
+          <span class="stat-label">Attending Guests</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-total-pax">0</span>
+          <span class="stat-label">Reserved Seats / Pax</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-total-wishes">0</span>
+          <span class="stat-label">Wishes & Blessings</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content: Form & Wishes Wall -->
+    <main class="main-layout">
+      <!-- Left Column: RSVP Form -->
+      <section class="card form-card">
+        <div class="card-header">
+          <h2>Attendance RSVP Form</h2>
+          <p>Please confirm your attendance to assist us in organizing seating and catering.</p>
+        </div>
+
+        <form id="rsvp-form" class="rsvp-form">
+          <div class="form-group">
+            <label for="input-name">Full Name / Family <span class="req">*</span></label>
+            <input type="text" id="input-name" required placeholder="e.g. John Doe & Partner" autocomplete="name">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="select-relationship">Relationship</label>
+              <select id="select-relationship">
+                <option value="Close Friend">Close Friend</option>
+                <option value="Family">Family</option>
+                <option value="Colleague">Colleague</option>
+                <option value="Alumni / Schoolmate">Alumni / Schoolmate</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="select-status">Attendance Status <span class="req">*</span></label>
+              <select id="select-status" required>
+                <option value="Attending">Attending</option>
+                <option value="Declined">Declined (Unable to attend)</option>
+                <option value="Tentative">Tentative (To be confirmed)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" id="pax-group">
+            <label for="input-pax">Number of Guests (Pax)</label>
+            <div class="pax-selector">
+              <button type="button" class="btn-pax active" data-val="1">1 Guest</button>
+              <button type="button" class="btn-pax" data-val="2">2 Guests</button>
+              <button type="button" class="btn-pax" data-val="3">3 Guests</button>
+              <button type="button" class="btn-pax" data-val="4">4+ Guests</button>
+            </div>
+            <input type="hidden" id="input-pax" value="1">
+          </div>
+
+          <div class="form-group">
+            <label for="input-wishes">Wishes & Warm Blessings</label>
+            <textarea id="input-wishes" rows="3" placeholder="Share your heartfelt wishes and blessings for the bride and groom..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="btn-submit">
+            <span class="btn-text">Submit RSVP Confirmation</span>
+            <span class="spinner" id="form-spinner"></span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Right Column: Live Wishes Wall -->
+      <section class="card wishes-card">
+        <div class="card-header wishes-header">
+          <div>
+            <h2>Digital Guestbook & Wishes</h2>
+            <p>Heartfelt blessings and congratulations from family and friends</p>
+          </div>
+          <button class="btn-refresh" id="btn-refresh" title="Refresh Feed">
+            <svg class="icon-refresh" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="wishes-list" id="wishes-list">
+          <div class="loading-state">Loading attendance records...</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Ticket Modal -->
+    <div class="modal-backdrop" id="ticket-modal">
+      <div class="modal-card ticket-card">
+        <div class="ticket-header">
+          <span class="badge-success">RSVP CONFIRMED</span>
+          <h3>Wedding Guest Attendance Pass</h3>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-code-block">
+            <span class="ticket-label">Guest Ticket ID</span>
+            <strong class="ticket-code" id="modal-ticket-code">WA-XXXXXX</strong>
+          </div>
+          <div class="ticket-info-row">
+            <span>Guest Name:</span>
+            <strong id="modal-guest-name">-</strong>
+          </div>
+          <div class="ticket-info-row">
+            <span>Status:</span>
+            <strong id="modal-guest-status">-</strong>
+          </div>
+          <div class="ticket-info-row">
+            <span>Reserved Pax:</span>
+            <strong id="modal-guest-pax">-</strong>
+          </div>
+          <div class="ticket-info-row">
+            <span>Confirmed At:</span>
+            <span id="modal-guest-time">-</span>
+          </div>
+        </div>
+        <div class="ticket-footer">
+          <button class="btn-close-modal" id="btn-close-ticket">Close & Save Pass</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- API Config Modal -->
+    <div class="modal-backdrop" id="config-modal">
+      <div class="modal-card">
+        <div class="card-header">
+          <h3>Amazon API Gateway Configuration</h3>
+          <p>Connect this Amplify web app with your Amazon API Gateway Stage Invoke URL.</p>
+        </div>
+        <div class="form-group">
+          <label for="input-api-url">API Gateway Invoke URL</label>
+          <input type="url" id="input-api-url" placeholder="https://xxxxxxxx.execute-api.us-east-1.amazonaws.com/prod">
+          <span class="help-text">Leave empty to run in offline local demonstration mode.</span>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="btn-cancel-config">Cancel</button>
+          <button class="btn-primary" id="btn-save-config">Save & Connect</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      <p>LKS Cloud Computing · Serverless Application: AWS Amplify + API Gateway + Lambda + CloudWatch + DynamoDB</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

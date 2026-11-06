@@ -1,0 +1,26 @@
+{
+  "TableName": "wa-attendance-table",
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "guestId",
+      "AttributeType": "S"
+    }
+  ],
+  "KeySchema": [
+    {
+      "AttributeName": "guestId",
+      "KeyType": "HASH"
+    }
+  ],
+  "BillingMode": "PAY_PER_REQUEST",
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "wa-serverless-wedding-attendance"
+    },
+    {
+      "Key": "Environment",
+      "Value": "Production"
+    }
+  ]
+}

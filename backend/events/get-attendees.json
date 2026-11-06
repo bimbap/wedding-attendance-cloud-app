@@ -1,0 +1,25 @@
+{
+  "resource": "/attendees",
+  "path": "/attendees",
+  "httpMethod": "GET",
+  "headers": {
+    "Accept": "application/json"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourcePath": "/attendees",
+    "httpMethod": "GET",
+    "path": "/prod/attendees",
+    "protocol": "HTTP/1.1",
+    "stage": "prod",
+    "requestId": "test-invoke-get-attendees",
+    "identity": {
+      "sourceIp": "192.0.2.1",
+      "userAgent": "Mozilla/5.0"
+    }
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

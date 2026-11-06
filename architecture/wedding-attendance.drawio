@@ -1,0 +1,119 @@
+<mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="#ffffff" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- EXTERNAL USERS & CLIENTS (LEFT SIDE) -->
+    <mxCell id="ext_user" value="End User (Browser)&#xa;HTTPS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EBF3FF;strokeColor=#0073BB;fontColor=#232F3E;fontStyle=1;fontSize=11;align=left;spacingLeft=50;" vertex="1" parent="1">
+      <mxGeometry x="25" y="210" width="175" height="55" as="geometry" />
+    </mxCell>
+
+    <mxCell id="icon_user" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#0073BB;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;pointerEvents=0;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+      <mxGeometry x="35" y="218" width="38" height="38" as="geometry" />
+    </mxCell>
+
+    <!-- AWS CLOUD CONTAINER -->
+    <mxCell id="aws_cloud" value="AWS CLOUD" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,1],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_aws_cloud_alt;strokeColor=#545B64;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#545B64;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="230" y="70" width="760" height="490" as="geometry" />
+    </mxCell>
+
+    <!-- REGION CONTAINER -->
+    <mxCell id="region_container" value="Virginia (us-east-1) | Serverless Application Layer" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_region;strokeColor=#00A1C9;fillColor=none;verticalAlign=top;align=left;spacingLeft=30;fontColor=#0073BB;dashed=1;" vertex="1" parent="1">
+      <mxGeometry x="260" y="110" width="700" height="245" as="geometry" />
+    </mxCell>
+
+    <!-- APP TIER CONTAINER -->
+    <mxCell id="app_tier" value="Frontend &amp; API Gateway Tier" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=11;fontStyle=1;shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_security_group;grStroke=0;strokeColor=none;fillColor=#EEF3E2;verticalAlign=top;align=left;spacingLeft=30;fontColor=#3F8624;dashed=0;" vertex="1" parent="1">
+      <mxGeometry x="290" y="155" width="640" height="185" as="geometry" />
+    </mxCell>
+
+    <!-- AMPLIFY HOSTING -->
+    <mxCell id="amplify" value="wa-amplify&#xa;Amplify Hosting" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.amplify;" vertex="1" parent="1">
+      <mxGeometry x="340" y="215" width="55" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- API GATEWAY -->
+    <mxCell id="apigw" value="wa-api-gateway&#xa;REST API" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=top;verticalAlign=bottom;spacingBottom=6;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.api_gateway;" vertex="1" parent="1">
+      <mxGeometry x="540" y="215" width="55" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- LAMBDA FUNCTION -->
+    <mxCell id="lambda" value="wa-lambda&#xa;Node.js :24" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=top;verticalAlign=bottom;spacingBottom=6;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.lambda_function;" vertex="1" parent="1">
+      <mxGeometry x="790" y="215" width="55" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- LOWER STORAGE, IDENTITY & OBSERVABILITY LAYER -->
+    <mxCell id="storage_box" value="Storage, Identity &amp; Observability Layer" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;strokeColor=#0073BB;strokeWidth=1.5;fillColor=#EBF3FF;verticalAlign=top;align=left;spacingLeft=15;spacingTop=6;fontSize=11;fontStyle=1;fontColor=#0073BB;" vertex="1" parent="1">
+      <mxGeometry x="290" y="375" width="640" height="150" as="geometry" />
+    </mxCell>
+
+    <!-- IAM ROLE (LABROLE) -->
+    <mxCell id="iam" value="wa-lambda-role&#xa;(LabRole)" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;" vertex="1" parent="1">
+      <mxGeometry x="340" y="415" width="55" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- DYNAMODB -->
+    <mxCell id="dynamodb" value="wa-dynamodb" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#0073BB;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.dynamodb;" vertex="1" parent="1">
+      <mxGeometry x="540" y="415" width="55" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- CLOUDWATCH -->
+    <mxCell id="cloudwatch" value="wa-cloudwatch" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=1;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.cloudwatch;" vertex="1" parent="1">
+      <mxGeometry x="790" y="415" width="55" height="55" as="geometry" />
+    </mxCell>
+
+    <!-- EDGES & FLOWS -->
+    <!-- User to Amplify -->
+    <mxCell id="flow_user_amplify" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF9900;strokeWidth=1.5;" edge="1" parent="1" source="ext_user" target="amplify">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="250" y="238" />
+          <mxPoint x="250" y="242" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- User to API Gateway -->
+    <mxCell id="flow_user_apigw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.5;" edge="1" parent="1" source="ext_user" target="apigw">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="220" y="250" />
+          <mxPoint x="220" y="300" />
+          <mxPoint x="500" y="300" />
+          <mxPoint x="500" y="242" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- API Gateway to Lambda -->
+    <mxCell id="edge_apigw_lambda" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.5;" edge="1" parent="1" source="apigw" target="lambda">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Lambda to DynamoDB -->
+    <mxCell id="edge_lambda_ddb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.5;" edge="1" parent="1" source="lambda" target="dynamodb">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="817" y="350" />
+          <mxPoint x="567" y="350" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Lambda to CloudWatch -->
+    <mxCell id="edge_lambda_cw" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.5;" edge="1" parent="1" source="lambda" target="cloudwatch">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- IAM to Lambda -->
+    <mxCell id="edge_iam_lambda" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#232F3E;strokeWidth=1.5;dashed=1;" edge="1" parent="1" source="iam" target="lambda">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="367" y="490" />
+          <mxPoint x="817" y="490" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+  </root>
+</mxGraphModel>

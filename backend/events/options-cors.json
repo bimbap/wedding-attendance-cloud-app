@@ -1,0 +1,19 @@
+{
+  "resource": "/attendees",
+  "path": "/attendees",
+  "httpMethod": "OPTIONS",
+  "headers": {
+    "Origin": "https://prod.d1234567890.amplifyapp.com",
+    "Access-Control-Request-Method": "POST",
+    "Access-Control-Request-Headers": "Content-Type"
+  },
+  "requestContext": {
+    "resourcePath": "/attendees",
+    "httpMethod": "OPTIONS",
+    "path": "/prod/attendees",
+    "stage": "prod",
+    "requestId": "test-invoke-options"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

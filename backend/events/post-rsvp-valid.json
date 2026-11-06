@@ -1,0 +1,26 @@
+{
+  "resource": "/attendees",
+  "path": "/attendees",
+  "httpMethod": "POST",
+  "headers": {
+    "Content-Type": "application/json",
+    "User-Agent": "PostmanRuntime/7.36.0"
+  },
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourcePath": "/attendees",
+    "httpMethod": "POST",
+    "path": "/prod/attendees",
+    "protocol": "HTTP/1.1",
+    "stage": "prod",
+    "requestId": "test-invoke-post-rsvp",
+    "identity": {
+      "sourceIp": "192.0.2.1",
+      "userAgent": "PostmanRuntime/7.36.0"
+    }
+  },
+  "body": "{\"name\":\"David Miller & Partner\",\"attendanceStatus\":\"Attending\",\"pax\":2,\"relationship\":\"Close Friend\",\"wishes\":\"Wishing you both a lifetime of happiness, joy, and blessings!\"}",
+  "isBase64Encoded": false
+}

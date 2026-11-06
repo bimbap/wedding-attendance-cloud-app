@@ -1,0 +1,13 @@
+{
+  "name": "wa-lambda-layer",
+  "version": "1.0.0",
+  "description": "AWS Lambda Dependency Layer for Wedding Attendance Application",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.500.0",
+    "@aws-sdk/lib-dynamodb": "^3.500.0"
+  },
+  "author": "LKS Cloud Computing",
+  "license": "ISC"
+}
+
