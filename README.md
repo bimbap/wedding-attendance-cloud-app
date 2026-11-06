@@ -1,7 +1,5 @@
 # Wedding Attendance & RSVP Guestbook — Serverless Multi-Tier Application
 
-**LKS Cloud Computing · Level: Intermediate to Advanced · Scenario: AWS Amplify, API Gateway, Lambda, CloudWatch & DynamoDB**
-
 ---
 
 ## 📋 Overview
@@ -45,10 +43,8 @@ wedding-reception-cloud-app/
     ├── index.js                   # Node.js ESM handler (DynamoDB DocumentClient)
     ├── package.json               # Backend dependencies manifest
     └── layer/                     # Lambda Layer dependencies (@aws-sdk/client-dynamodb)
-        ├── package.json
-        ├── build-layer.sh
-        ├── build-layer.ps1
-        └── README.md
+        ├── README.md              # Layer manual packaging instructions
+        └── package.json           # Layer dependency manifest
 ```
 
 ---

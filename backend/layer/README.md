@@ -1,10 +1,12 @@
 # AWS Lambda Layer — `wa-layer`
 
-Dependency layer package (`@aws-sdk/client-dynamodb` and `@aws-sdk/lib-dynamodb`) for `wa-lambda`.
+This directory provides the dependency manifest (`package.json`) required to package the AWS Lambda Layer (`wa-layer`) for `wa-lambda`.
 
 ---
 
-## 📁 Required Archive Structure
+## 📁 Required Layer Structure
+
+AWS Lambda requires all Node.js layer dependencies to reside under the root folder `nodejs/`:
 
 ```text
 wa-layer.zip
@@ -17,19 +19,36 @@ wa-layer.zip
 
 ---
 
-## 🚀 Build Layer Archive
+## 📦 Packaging Instructions
 
-**Linux / macOS:**
-```bash
-cd backend/layer
-chmod +x build-layer.sh
-./build-layer.sh
-```
+Participants must manually construct the layer archive according to AWS Lambda runtime specifications:
 
-**Windows PowerShell:**
-```powershell
-cd backend/layer
-./build-layer.ps1
-```
+1. **Create the `nodejs/` directory**:
+   ```bash
+   mkdir nodejs
+   ```
 
-Upload the generated `wa-layer.zip` to **AWS Lambda -> Layers** (`wa-layer`) and attach it to `wa-lambda`.
+2. **Copy manifest and install production dependencies**:
+   ```bash
+   cp package.json nodejs/
+   cd nodejs
+   npm install --omit=dev
+   cd ..
+   ```
+
+3. **Archive into `wa-layer.zip`**:
+   - Ensure `nodejs/` is located at the root of the archive.
+   - **Linux / macOS**:
+     ```bash
+     zip -r wa-layer.zip nodejs/
+     ```
+   - **Windows PowerShell**:
+     ```powershell
+     Compress-Archive -Path nodejs -DestinationPath wa-layer.zip
+     ```
+
+4. **Publish & Attach to Lambda**:
+   - In AWS Lambda Console, navigate to **Layers** -> **Create layer**.
+   - **Name**: `wa-layer`
+   - **Compatible runtimes**: `Node.js 20.x`, `Node.js 24.x`
+   - Upload `wa-layer.zip` and attach the created layer version to `wa-lambda`.
