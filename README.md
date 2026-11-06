@@ -28,7 +28,7 @@ This application demonstrates the complete **Serverless Application Pattern on A
 ## 📁 Project Structure
 
 ```text
-pr-wedding-attendance-app/
+wedding-reception-cloud-app/
 ├── README.md                      # Project brief and deployment instructions
 ├── architecture/                  # Visual architecture blueprint
 │   ├── Wedding Attendance Architecture.png
@@ -81,11 +81,49 @@ All endpoints (except `/health`) support preflight CORS options (`OPTIONS`).
 
 ---
 
-## 🚀 Deployment & Task Specifications
+## 📌 Competition Instructions
 
-All architectural requirements, provisioning steps, resource naming conventions, and evaluation criteria are specified in the official **Competition Practice Module Document**.
+This repository provides the starter source code for the **Wedding Attendance & RSVP Portal** competition scenario.
 
-For component-level setup and packaging notes, refer to the respective directory guides:
-- **Frontend Application & Amplify Hosting**: [`frontend/README.md`](frontend/README.md)
-- **Backend Lambda Runtime & Environment**: [`backend/README.md`](backend/README.md)
-- **Lambda Layer Build & Packaging**: [`backend/layer/README.md`](backend/layer/README.md)
+All infrastructure provisioning requirements, resource configurations, AWS service integrations, and grading milestones are specified in the official **LKS Competition Practice Module Document**.
+
+Refer to component-level directories for tier-specific packaging and configuration notes:
+- **Frontend Application & Hosting**: [`frontend/README.md`](frontend/README.md)
+- **Backend Lambda Function**: [`backend/README.md`](backend/README.md)
+- **Lambda Layer Dependencies**: [`backend/layer/README.md`](backend/layer/README.md)
+
+---
+
+## 🧪 Testing & Verification
+
+Once your API Gateway stage (`prod`) is deployed, verify your serverless backend endpoints using the following commands:
+
+### 1. Health & Configuration Check
+```bash
+curl -s https://{api-id}.execute-api.us-east-1.amazonaws.com/prod/health
+```
+
+### 2. Submit Attendance RSVP
+```bash
+curl -s -X POST https://{api-id}.execute-api.us-east-1.amazonaws.com/prod/attendees \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "David Miller & Partner",
+    "relationship": "Close Friend",
+    "attendanceStatus": "Attending",
+    "pax": 2,
+    "wishes": "Wishing you both a wonderful journey ahead!"
+  }'
+```
+
+### 3. Retrieve Guest List & Live Statistics
+```bash
+curl -s https://{api-id}.execute-api.us-east-1.amazonaws.com/prod/attendees
+```
+
+### 4. CORS Preflight Handshake
+```bash
+curl -s -I -X OPTIONS https://{api-id}.execute-api.us-east-1.amazonaws.com/prod/attendees \
+  -H "Origin: https://wa-amplify.amplifyapp.com" \
+  -H "Access-Control-Request-Method: POST"
+```

@@ -24,3 +24,4 @@ Deploy this frontend to **AWS Amplify Hosting** using manual archive deployment:
    - Click the gear icon (**Configure API**) in the header bar.
    - Paste your Amazon API Gateway stage Invoke URL (e.g., `https://{api-id}.execute-api.us-east-1.amazonaws.com/prod`).
    - The indicator will turn green (`Connected: AWS Cloud API`), enabling live RSVP operations.
+

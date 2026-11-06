@@ -13,9 +13,10 @@ const REGION = process.env.AWS_REGION || "us-east-1";
  * 
  * Note: AWS_REGION is automatically injected by the AWS Lambda runtime environment.
  */
+
 export const REQUIRED_ENV_KEYS = [
-  "TABLE_NAME",    // DynamoDB Table Name (e.g., "wa-dynamodb")
-  "TICKET_PREFIX"  // Ticket / Guest ID prefix (e.g., "WA")
+  "TABLE_NAME",
+  "TICKET_PREFIX" 
 ];
 
 const ddbClient = new DynamoDBClient({ region: REGION });
