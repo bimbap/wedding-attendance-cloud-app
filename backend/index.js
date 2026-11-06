@@ -4,10 +4,20 @@ import { DynamoDBDocumentClient, ScanCommand, PutCommand } from "@aws-sdk/lib-dy
 
 const REGION = process.env.AWS_REGION || "us-east-1";
 
+/**
+ * Required Environment Variables Configuration:
+ * Configure these keys in AWS Lambda Console (Configuration -> Environment variables):
+ * 
+ * - TABLE_NAME    : Name of the target DynamoDB table (e.g., "wa-dynamodb")
+ * - TICKET_PREFIX : Prefix string prepended to generated ticket IDs (e.g., "WA" or "RSVP")
+ * - SERVICE_NAME  : Service identifier for health monitoring and logs (e.g., "wa-attendance-service")
+ * 
+ * Note: AWS_REGION is automatically injected by the AWS Lambda runtime environment.
+ */
 export const REQUIRED_ENV_KEYS = [
-  "TABLE_NAME",
-  "TICKET_PREFIX",
-  "SERVICE_NAME"
+  "TABLE_NAME",    
+  "TICKET_PREFIX", 
+  "SERVICE_NAME"   
 ];
 
 const ddbClient = new DynamoDBClient({ region: REGION });
