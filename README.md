@@ -1,7 +1,5 @@
 # Wedding Attendance & RSVP Guestbook — Serverless Multi-Tier Application
 
----
-
 ## 📋 Overview
 
 **Wedding Attendance & RSVP Guestbook** is a production-grade, multi-tier serverless web application designed for modern wedding events and receptions. It replaces paper-based guestbooks with an automated digital RSVP portal, live guest attendance statistics, reserved seating calculation, and a live digital wishes wall.
