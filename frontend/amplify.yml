@@ -3,7 +3,7 @@ frontend:
   phases:
     build:
       commands:
-        - echo "Packaging Kondangan Attendance App for AWS Amplify Hosting..."
+        - echo "Packaging Wedding Attendance App for AWS Amplify Hosting..."
   artifacts:
     baseDirectory: /
     files:
