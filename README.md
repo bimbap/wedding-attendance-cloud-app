@@ -73,7 +73,7 @@ All endpoints (except `/health`) support preflight CORS options (`OPTIONS`).
 
 ---
 
-## 📌 Competition Instructions
+## 📌 Instructions
 
 This repository provides the starter source code for the **Wedding Attendance & RSVP Portal** competition scenario.
 
