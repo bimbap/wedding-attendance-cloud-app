@@ -85,7 +85,6 @@ All endpoints (except `/health`) support preflight CORS options (`OPTIONS`).
 
 This repository provides the starter source code for the **Wedding Attendance & RSVP Portal** competition scenario.
 
-All infrastructure provisioning requirements, resource configurations, AWS service integrations, and grading milestones are specified in the official **LKS Competition Practice Module Document**.
 
 Refer to component-level directories for tier-specific packaging and configuration notes:
 - **Frontend Application & Hosting**: [`frontend/README.md`](frontend/README.md)
