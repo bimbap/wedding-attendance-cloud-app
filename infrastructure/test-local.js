@@ -1,6 +1,6 @@
 /**
  * Local Handler Test Script (Node.js 24 ESM .js)
- * No AWS credentials required for preflight/validation checks.
+ * Validates CORS preflight, environment variable checks, input validation, and routing.
  */
 import { handler } from "../backend/index.js";
 
@@ -13,16 +13,30 @@ async function runLocalVerification() {
   console.log("Status:", corsResponse.statusCode);
   console.log("Headers:", corsResponse.headers);
 
-  console.log("\n=== 2. Testing Input Validation (Missing Name) ===");
+  console.log("\n=== 2. Testing Health Endpoint (/health) ===");
+  const healthResponse = await handler({
+    httpMethod: "GET",
+    path: "/health"
+  }, { awsRequestId: "test-health" });
+  console.log("Status:", healthResponse.statusCode);
+  console.log("Body:", healthResponse.body);
+
+  if (healthResponse.statusCode === 500) {
+    console.warn("\n[NOTICE] Environment variables are not yet configured in backend/.env!");
+    console.warn("Read backend/README.md and inspect backend/index.js to complete backend/.env.\n");
+    return;
+  }
+
+  console.log("\n=== 3. Testing Input Validation (Missing Name) ===");
   const invalidResponse = await handler({
     httpMethod: "POST",
     path: "/attendees",
-    body: JSON.stringify({ attendanceStatus: "Hadir", pax: 2 })
+    body: JSON.stringify({ attendanceStatus: "Attending", pax: 2 })
   }, { awsRequestId: "test-invalid" });
   console.log("Status:", invalidResponse.statusCode);
   console.log("Body:", invalidResponse.body);
 
-  console.log("\n=== 3. Testing 404 Route Handling ===");
+  console.log("\n=== 4. Testing 404 Route Handling ===");
   const notFoundResponse = await handler({
     httpMethod: "GET",
     path: "/unknown-endpoint"
@@ -37,4 +51,3 @@ runLocalVerification().catch(err => {
   console.error("Local test error:", err);
   process.exit(1);
 });
-

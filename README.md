@@ -43,6 +43,8 @@ pr-wedding-attendance-app/
 │   ├── app.js                     # Dynamic controller: API Gateway integration & local fallback
 │   └── amplify.yml                # AWS Amplify Hosting build specification
 ├── backend/                       # Serverless Lambda function
+│   ├── README.md                  # Backend runtime & configuration instructions
+│   ├── .env.example               # Environment configuration template
 │   ├── index.js                   # Node.js 24 ESM handler (DynamoDB DocClient + CloudWatch logger)
 │   ├── package.json               # Node.js manifest with local test script
 │   ├── layer/                     # AWS Lambda Layer packaging for dependencies
@@ -145,12 +147,8 @@ In AWS Academy / Vocareum / LKS competition environments, select the pre-provisi
    - **Architecture**: `x86_64`
    - **Execution role**: Select **`LabRole`**.
 3. **Deploy Code**:
-   - In the **Code source** tab, paste [`backend/index.js`](backend/index.js) and click **Deploy**.
+   - In the **Code source** tab, deploy the backend code from [`backend/`](backend/) and follow the configuration requirements inside [`backend/README.md`](backend/README.md).
    - If using `wa-layer`, scroll down to **Layers** -> **Add a layer** -> Select `wa-layer` (Version 1).
-4. **Configure Environment Variables**:
-   - Under **Configuration** -> **Environment variables** -> click **Edit**:
-   - Key: `TABLE_NAME` | Value: `wa-attendance-table`
-   - Click **Save**.
 
 ---
 

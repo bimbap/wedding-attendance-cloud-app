@@ -1,7 +1,65 @@
 import crypto from "crypto";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-// Table name from environment variable (prefixed with wa-)
-const TABLE_NAME = process.env.TABLE_NAME || "wa-attendance-table";
+// -----------------------------------------------------------------------------
+// 1. Built-in Zero-Dependency .env Loader
+// -----------------------------------------------------------------------------
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+function loadDotEnv() {
+  const candidates = [
+    path.join(__dirname, ".env"),
+    path.resolve(process.cwd(), ".env")
+  ];
+
+  for (const envPath of candidates) {
+    if (fs.existsSync(envPath)) {
+      const content = fs.readFileSync(envPath, "utf-8");
+      for (const rawLine of content.split(/\r?\n/)) {
+        const line = rawLine.trim();
+        if (!line || line.startsWith("#")) continue;
+        const eqIdx = line.indexOf("=");
+        if (eqIdx === -1) continue;
+        const key = line.slice(0, eqIdx).trim();
+        const val = line.slice(eqIdx + 1).trim().replace(/^['"]|['"]$/g, "");
+        if (key && process.env[key] === undefined) {
+          process.env[key] = val;
+        }
+      }
+      break;
+    }
+  }
+}
+
+loadDotEnv();
+
+// -----------------------------------------------------------------------------
+// 2. Mandatory Environment Variable Validation
+//    Participants must configure these in backend/.env or Lambda Configuration:
+//    - AWS_REGION    (e.g. us-east-1)
+//    - TABLE_NAME    (DynamoDB table name, e.g. wa-attendance-table)
+//    - TICKET_PREFIX (Ticket ID prefix without hyphen, e.g. WA)
+//    - SERVICE_NAME  (Service identifier for health telemetry, e.g. wa-attendance-api)
+// -----------------------------------------------------------------------------
+export const REQUIRED_ENV_KEYS = [
+  "AWS_REGION",
+  "TABLE_NAME",
+  "TICKET_PREFIX",
+  "SERVICE_NAME"
+];
+
+function validateEnvironment() {
+  loadDotEnv();
+  const missingKeys = REQUIRED_ENV_KEYS.filter(
+    key => !process.env[key] || String(process.env[key]).trim() === ""
+  );
+  return {
+    isValid: missingKeys.length === 0,
+    missingKeys
+  };
+}
 
 // Global DynamoDB client reference
 let docClient = null;
@@ -49,9 +107,9 @@ const buildResponse = (statusCode, bodyObj) => ({
 export const handler = async (event, context) => {
   const requestId = context?.awsRequestId || "req-" + Date.now();
   
-  // Normalize HTTP method and path for both HTTP API (v2) and REST API (v1)
-  const method = event?.requestContext?.http?.method || event?.httpMethod || "GET";
-  const path = event?.rawPath || event?.path || "/";
+  // Normalize HTTP method and path for both REST API (v1) and HTTP API (v2)
+  const method = event?.httpMethod || event?.requestContext?.http?.method || "GET";
+  const reqPath = event?.path || event?.rawPath || "/";
 
   // Structured Logging for CloudWatch Logs
   console.log(JSON.stringify({
@@ -59,27 +117,52 @@ export const handler = async (event, context) => {
     message: "Incoming Request Received",
     requestId,
     httpMethod: method,
-    path,
-    sourceIp: event?.requestContext?.http?.sourceIp || event?.requestContext?.identity?.sourceIp,
-    userAgent: event?.requestContext?.http?.userAgent || event?.headers?.["user-agent"],
+    path: reqPath,
+    sourceIp: event?.requestContext?.identity?.sourceIp || event?.requestContext?.http?.sourceIp,
+    userAgent: event?.headers?.["User-Agent"] || event?.headers?.["user-agent"] || event?.requestContext?.http?.userAgent,
     mockMode: isLocalMockMode,
     timestamp: new Date().toISOString()
   }));
 
-  // Handle Preflight CORS Request
+  // Handle Preflight CORS Request immediately
   if (method === "OPTIONS") {
     return buildResponse(200, { message: "CORS Preflight OK" });
   }
+
+  // Enforce Mandatory Environment Variables (.env / Lambda Env Vars)
+  const envCheck = validateEnvironment();
+  if (!envCheck.isValid) {
+    console.error(JSON.stringify({
+      level: "ERROR",
+      message: "Configuration Error: Missing required environment variables",
+      requestId,
+      missingKeys: envCheck.missingKeys,
+      hint: "Inspect backend/README.md and backend/index.js to configure all required environment variables.",
+      timestamp: new Date().toISOString()
+    }));
+
+    return buildResponse(500, {
+      status: "error",
+      message: `Configuration Error: Missing required environment variables: ${envCheck.missingKeys.join(", ")}`,
+      requestId
+    });
+  }
+
+  const TABLE_NAME = process.env.TABLE_NAME.trim();
+  const TICKET_PREFIX = process.env.TICKET_PREFIX.trim().replace(/-$/, "");
+  const SERVICE_NAME = process.env.SERVICE_NAME.trim();
 
   try {
     // -------------------------------------------------------------------------
     // Route 1: GET /health - Basic health check
     // -------------------------------------------------------------------------
-    if (method === "GET" && (path === "/health" || path.endsWith("/health"))) {
+    if (method === "GET" && (reqPath === "/health" || reqPath.endsWith("/health"))) {
       return buildResponse(200, {
         status: "healthy",
-        service: "wa-attendance-api",
+        service: SERVICE_NAME,
+        region: process.env.AWS_REGION.trim(),
         tableName: TABLE_NAME,
+        ticketPrefix: TICKET_PREFIX,
         mode: isLocalMockMode ? "InMemoryMock" : "DynamoDBLive",
         timestamp: new Date().toISOString()
       });
@@ -88,7 +171,7 @@ export const handler = async (event, context) => {
     // -------------------------------------------------------------------------
     // Route 2: GET /attendees or GET / - List all attendees and compute summary stats
     // -------------------------------------------------------------------------
-    if (method === "GET" && (path === "/attendees" || path.endsWith("/attendees") || path === "/")) {
+    if (method === "GET" && (reqPath === "/attendees" || reqPath.endsWith("/attendees") || reqPath === "/")) {
       let attendees = [];
 
       if (!isLocalMockMode && docClient) {
@@ -110,11 +193,11 @@ export const handler = async (event, context) => {
       const stats = {
         totalRsvp: attendees.length,
         totalAttending: attendees.filter(isAttending).length,
-        totalHadir: attendees.filter(isAttending).length, // compatibility alias
+        totalHadir: attendees.filter(isAttending).length,
         totalDeclined: attendees.filter(isDeclined).length,
-        totalTidakHadir: attendees.filter(isDeclined).length, // compatibility alias
+        totalTidakHadir: attendees.filter(isDeclined).length,
         totalTentative: attendees.filter(isTentative).length,
-        totalRagu: attendees.filter(isTentative).length, // compatibility alias
+        totalRagu: attendees.filter(isTentative).length,
         totalPaxConfirmed: attendees
           .filter(isAttending)
           .reduce((sum, a) => sum + (Number(a.pax) || 1), 0)
@@ -139,7 +222,7 @@ export const handler = async (event, context) => {
     // -------------------------------------------------------------------------
     // Route 3: POST /attendees - Register attendance RSVP & Wishes
     // -------------------------------------------------------------------------
-    if (method === "POST" && (path === "/attendees" || path.endsWith("/attendees") || path === "/")) {
+    if (method === "POST" && (reqPath === "/attendees" || reqPath.endsWith("/attendees") || reqPath === "/")) {
       let body = {};
       try {
         body = typeof event.body === "string" ? JSON.parse(event.body || "{}") : (event.body || {});
@@ -173,9 +256,9 @@ export const handler = async (event, context) => {
       const resolvedWishes = wishes && typeof wishes === "string" ? wishes.trim() : "Congratulations and best wishes for a wonderful life together!";
       const resolvedRelationship = relationship || "Friend";
 
-      // Generate Unique Guest Ticket Code & ID (prefixed with WA-)
+      // Generate Unique Guest Ticket Code & ID using TICKET_PREFIX from environment
       const randomSuffix = crypto.randomBytes(3).toString("hex").toUpperCase();
-      const guestId = `WA-${randomSuffix}`;
+      const guestId = `${TICKET_PREFIX}-${randomSuffix}`;
       const createdAt = new Date().toISOString();
 
       const newAttendee = {
@@ -229,7 +312,7 @@ export const handler = async (event, context) => {
     // Default 404 Route
     return buildResponse(404, {
       status: "error",
-      message: `Resource not found for ${method} ${path}`
+      message: `Resource not found for ${method} ${reqPath}`
     });
 
   } catch (error) {
