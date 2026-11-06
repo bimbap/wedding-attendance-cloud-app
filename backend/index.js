@@ -10,14 +10,12 @@ const REGION = process.env.AWS_REGION || "us-east-1";
  * 
  * - TABLE_NAME    : Name of the target DynamoDB table (e.g., "wa-dynamodb")
  * - TICKET_PREFIX : Prefix string prepended to generated ticket IDs (e.g., "WA" or "RSVP")
- * - SERVICE_NAME  : Service identifier for health monitoring and logs (e.g., "wa-attendance-service")
  * 
  * Note: AWS_REGION is automatically injected by the AWS Lambda runtime environment.
  */
 export const REQUIRED_ENV_KEYS = [
-  "TABLE_NAME",    
-  "TICKET_PREFIX", 
-  "SERVICE_NAME"   
+  "TABLE_NAME",    // DynamoDB Table Name (e.g., "wa-dynamodb")
+  "TICKET_PREFIX"  // Ticket / Guest ID prefix (e.g., "WA")
 ];
 
 const ddbClient = new DynamoDBClient({ region: REGION });
@@ -87,13 +85,10 @@ export const handler = async (event, context) => {
 
   const TABLE_NAME = process.env.TABLE_NAME.trim();
   const TICKET_PREFIX = process.env.TICKET_PREFIX.trim().replace(/-$/, "");
-  const SERVICE_NAME = process.env.SERVICE_NAME.trim();
-
   try {
     if (method === "GET" && (reqPath === "/health" || reqPath.endsWith("/health"))) {
       return buildResponse(200, {
         status: "healthy",
-        service: SERVICE_NAME,
         region: REGION,
         tableName: TABLE_NAME,
         ticketPrefix: TICKET_PREFIX,
