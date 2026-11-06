@@ -15,14 +15,7 @@ The provided [`.env.example`](.env.example) file is **intentionally incomplete**
 ```dotenv
 AWS_REGION=
 TABLE_NAME=
-
-# TODO: Add the remaining required environment variables below
 ```
-
-To successfully deploy and run `wa-lambda`, you must:
-1. Copy `.env.example` to `.env` (or configure Lambda Environment Variables in the AWS Console).
-2. **Inspect [`index.js`](index.js)** (look for `REQUIRED_ENV_KEYS` and `validateEnvironment()`) to discover **all mandatory environment variable names** that the handler expects.
-3. Determine the exact required values based on the project's resource naming rules, DynamoDB table schema, and ticket code format (`WA-XXXXXX`).
 
 ---
 
