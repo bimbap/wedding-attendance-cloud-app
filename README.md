@@ -81,33 +81,11 @@ All endpoints (except `/health`) support preflight CORS options (`OPTIONS`).
 
 ---
 
-## 🚀 Deployment Guide
+## 🚀 Deployment & Task Specifications
 
-> 💡 **Resource Naming Prefix**: All resources must use the prefix **`wa-`** (e.g. `wa-attendance-table`, `wa-lambda`, `wa-api-gateway`, `wa-amplify`). Use the pre-provisioned **`LabRole`** for execution permissions.
+All architectural requirements, provisioning steps, resource naming conventions, and evaluation criteria are specified in the official **Competition Practice Module Document**.
 
-### 1. Amazon DynamoDB Table
-- **Table Name**: `wa-attendance-table`
-- **Partition Key**: `guestId` (String)
-- **Table Class**: DynamoDB Standard
-- **Capacity Mode**: On-demand (`PAY_PER_REQUEST`)
-
-### 2. Lambda Layer (`wa-layer`)
-1. Run `./build-layer.sh` (or `./build-layer.ps1`) inside [`backend/layer/`](backend/layer/) to generate `wa-layer.zip`.
-2. Publish as an AWS Lambda Layer named `wa-layer` for Node.js runtimes.
-
-### 3. AWS Lambda Backend (`wa-lambda`)
-1. Create function `wa-lambda` with runtime `Node.js 20.x` or `Node.js 24.x` (x86_64) and execution role `LabRole`.
-2. Deploy the code from [`backend/index.js`](backend/index.js) and attach `wa-layer`.
-3. Configure the required **Environment variables** under **Configuration -> Environment variables** (see [`backend/README.md`](backend/README.md) and [`backend/index.js`](backend/index.js)).
-
-### 4. Amazon API Gateway (`wa-api-gateway`)
-1. Create a **REST API** (Regional) named `wa-api-gateway`.
-2. Create resources:
-   - `/health` with `GET` method (Lambda Proxy Integration to `wa-lambda`).
-   - `/attendees` with `GET` and `POST` methods (Lambda Proxy Integration to `wa-lambda`).
-3. Enable CORS on `/attendees` (`GET`, `POST`, `OPTIONS`).
-4. Deploy API to a new stage named **`prod`** and copy the Invoke URL.
-
-### 5. AWS Amplify Hosting (`wa-amplify`)
-Deploy the responsive frontend web application to AWS Amplify Hosting via archive upload (`wa-amplify`).  
-See [`frontend/README.md`](frontend/README.md) for step-by-step deployment and API connection instructions.
+For component-level setup and packaging notes, refer to the respective directory guides:
+- **Frontend Application & Amplify Hosting**: [`frontend/README.md`](frontend/README.md)
+- **Backend Lambda Runtime & Environment**: [`backend/README.md`](backend/README.md)
+- **Lambda Layer Build & Packaging**: [`backend/layer/README.md`](backend/layer/README.md)
