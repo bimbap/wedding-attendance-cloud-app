@@ -31,7 +31,21 @@ Configure these parameters under **Configuration** -> **General configuration**:
 | **Memory** | `256 MB` |
 | **Timeout** | `15 sec` |
 
-> **Note on ESM Syntax**: Since [`index.js`](index.js) uses `import`/`export` syntax, deploy the file as **`index.mjs`** in the Lambda Console (or include `{"type": "module"}` in `package.json`) to prevent CommonJS syntax errors.
+---
+
+## 📦 Required `package.json` for ES Modules
+
+Since [`index.js`](index.js) uses modern ECMAScript Module (ESM) syntax (`import`/`export`), AWS Lambda requires a [`package.json`](package.json) file in the root function directory (`/var/task/`) specifying `"type": "module"`:
+
+```json
+{
+  "name": "wa-lambda",
+  "version": "1.0.0",
+  "type": "module"
+}
+```
+
+> **Important**: If you deploy `index.js` alone without `package.json`, Node.js defaults to CommonJS and will fail with `SyntaxError: Cannot use import statement outside a module`. Ensure both `index.js` and `package.json` are deployed together to the Lambda function.
 
 ---
 
