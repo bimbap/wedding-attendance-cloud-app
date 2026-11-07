@@ -16,7 +16,7 @@ Deploy this frontend to **AWS Amplify Hosting** using manual archive deployment:
    - In AWS Console, open **AWS Amplify**.
    - Choose **Deploy an app** -> **Deploy without Git provider**.
    - **App name**: `wa-amplify`
-   - **Branch / Environment**: `prod`
+   - **Branch / Environment**: `main`
    - Upload `frontend.zip` and click **Save and deploy**.
 
 3. **Connect API Endpoint**:
