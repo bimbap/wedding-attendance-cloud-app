@@ -8,7 +8,7 @@ const REGION = process.env.AWS_REGION || "us-east-1";
  * Required Environment Variables Configuration:
  * Configure these keys in AWS Lambda Console (Configuration -> Environment variables):
  * 
- * - TABLE_NAME    : Name of the target DynamoDB table (e.g., "wa-attendance-table")
+ * - TABLE_NAME    : Name of the target DynamoDB table (e.g., "wa-dynamodb")
  * - TICKET_PREFIX : Prefix string prepended to generated ticket IDs (e.g., "WA" or "RSVP")
  * 
  * Note: AWS_REGION is automatically injected by the AWS Lambda runtime environment.
