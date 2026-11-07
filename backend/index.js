@@ -179,8 +179,7 @@ export const handler = async (event, context) => {
         pax: resolvedPax,
         wishes: resolvedWishes,
         relationship: resolvedRelationship,
-        createdAt,
-        checkInTime: null
+        createdAt
       };
 
       await docClient.send(new PutCommand({
