@@ -53,12 +53,12 @@ wedding-reception-cloud-app/
 
 All endpoints (except `/health`) support preflight CORS options (`OPTIONS`).
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/health` | Health check & service status |
-| `GET` | `/attendees` | Retrieve list of confirmed attendees and live statistics |
-| `POST` | `/attendees` | Submit new attendance RSVP with guest details |
-| `OPTIONS` | `/attendees` | Preflight CORS handshake |
+| Method | Endpoint | CORS | Description |
+|---|---|---|---|
+| `GET` | `/health` | `No` | Health check & service status (Direct/CLI) |
+| `GET` | `/attendees` | `Yes` | Retrieve list of confirmed attendees and live statistics |
+| `POST` | `/attendees` | `Yes` | Submit new attendance RSVP with guest details |
+| `OPTIONS` | `/attendees` | `Yes` | Preflight CORS handshake |
 
 #### Sample POST `/attendees` Request Payload:
 ```json
