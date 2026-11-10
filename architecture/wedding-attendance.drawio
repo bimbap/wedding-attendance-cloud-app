@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="vhRLLQrHdkG6wLs_PDb2" name="Page-1">
-        <mxGraphModel dx="706" dy="447" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="760" background="#ffffff" math="0" shadow="0">
+        <mxGraphModel dx="706" dy="447" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="760" background="#ffffff" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -16,7 +16,7 @@
                 <mxCell id="tier_storage" value="Storage &amp; Integration Tier" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;dashed=1;strokeColor=#0073BB;strokeWidth=1.5;fillColor=#F6F9FD;verticalAlign=top;align=left;spacingLeft=18;spacingTop=8;fontSize=11;fontStyle=1;fontColor=#0073BB;" parent="1" vertex="1">
                     <mxGeometry x="275" y="470" width="895" height="200" as="geometry"/>
                 </mxCell>
-                <mxCell id="ext_user" value="&lt;b&gt;End User&lt;/b&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#EBF3FF;strokeColor=#0073BB;strokeWidth=1.5;fontColor=#232F3E;fontSize=11;align=left;spacingLeft=52;shadow=1;" parent="1" vertex="1">
+                <mxCell id="ext_user" value="&lt;b&gt;User&lt;/b&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#EBF3FF;strokeColor=#0073BB;strokeWidth=1.5;fontColor=#232F3E;fontSize=11;align=left;spacingLeft=52;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="30" y="243" width="165" height="52" as="geometry"/>
                 </mxCell>
                 <mxCell id="icon_user" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#0073BB;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=11;fontStyle=0;aspect=fixed;pointerEvents=0;shape=mxgraph.aws4.user;" parent="1" vertex="1">
@@ -36,9 +36,6 @@
                 </mxCell>
                 <mxCell id="lambda_post" value="&lt;b&gt;wa-post-attendee-lambda&lt;/b&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=top;verticalAlign=bottom;spacingBottom=6;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.lambda_function;" parent="1" vertex="1">
                     <mxGeometry x="670" y="340" width="50" height="50" as="geometry"/>
-                </mxCell>
-                <mxCell id="layer" value="&lt;b&gt;wa-layer&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#545B64&quot; style=&quot;font-size: 9.5px;&quot;&gt;Lambda Layer&lt;/font&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=top;verticalAlign=bottom;spacingBottom=6;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.lambda_function;" parent="1" vertex="1">
-                    <mxGeometry x="815" y="145" width="50" height="50" as="geometry"/>
                 </mxCell>
                 <mxCell id="cloudwatch" value="&lt;b&gt;CloudWatch Logs&lt;/b&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=top;verticalAlign=bottom;spacingBottom=6;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.cloudwatch;" parent="1" vertex="1">
                     <mxGeometry x="980" y="243" width="50" height="50" as="geometry"/>
@@ -87,11 +84,11 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge_get_ddb" value="Scan" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#0073BB;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" parent="1" source="lambda_get" target="dynamodb" edge="1">
+                <mxCell id="edge_get_ddb" value="Get" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#0073BB;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" parent="1" source="lambda_get" target="dynamodb" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="755" y="268"/>
-                            <mxPoint x="755" y="565"/>
+                            <mxPoint x="750" y="268"/>
+                            <mxPoint x="750" y="565"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -108,22 +105,27 @@
                 <mxCell id="edge_sns_email" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E7157B;strokeWidth=1.8;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="sns_topic" target="email_notif" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge_layer_get" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ED7100;strokeWidth=1.3;dashed=1;exitX=0.2;exitY=1;entryX=0.8;entryY=0;" parent="1" source="layer" target="lambda_get" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="edge_layer_post" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#ED7100;strokeWidth=1.3;dashed=1;exitX=0.7;exitY=1;entryX=0.8;entryY=0;" parent="1" source="layer" target="lambda_post" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="850" y="320"/>
-                            <mxPoint x="710" y="320"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
                 <mxCell id="edge_cw_get" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="lambda_get" target="cloudwatch" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="edge_iam_binding" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#545B64;strokeWidth=1.4;dashed=1;exitX=0.5;exitY=0;entryX=0.15;entryY=1;" parent="1" source="iam" target="tier_compute" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_cw_health" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" parent="1" source="lambda_health" target="cloudwatch" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="920" y="170"/>
+                            <mxPoint x="920" y="256"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge_cw_post" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" parent="1" source="lambda_post" target="cloudwatch" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="920" y="365"/>
+                            <mxPoint x="920" y="280"/>
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
             </root>
         </mxGraphModel>
