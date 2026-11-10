@@ -7,9 +7,10 @@
 This application demonstrates the complete **Serverless Application Pattern on AWS**:
 1. **Frontend Tier**: Single Page Application (SPA) deployed globally via **AWS Amplify Hosting**.
 2. **API Management Tier**: Fully managed HTTPS REST API with Lambda Proxy integration and CORS preflight handling on **Amazon API Gateway**.
-3. **Compute Tier**: Stateless event-driven microservice running on **AWS Lambda** (Node.js 20.x / 24.x ESM).
-4. **Database Tier**: Auto-scaling NoSQL key-value store on **Amazon DynamoDB**.
-5. **Observability Tier**: Structured JSON application logging in **Amazon CloudWatch Logs**.
+3. **Compute Tier**: Decoupled serverless microservices running on **AWS Lambda** (`wa-health-lambda`, `wa-get-attendees-lambda`, `wa-post-attendee-lambda`).
+4. **Notification Tier**: Event-driven real-time alerts via **Amazon SNS** (`wa-rsvp-topic`) notifying organizers on successful RSVP.
+5. **Database Tier**: Auto-scaling NoSQL key-value store on **Amazon DynamoDB** (`wa-attendance-table`).
+6. **Observability Tier**: Structured JSON application logging in **Amazon CloudWatch Logs**.
 
 ---
 
@@ -35,14 +36,19 @@ wedding-reception-cloud-app/
 │   ├── style.css                  # Responsive UI styling
 │   ├── app.js                     # Dynamic controller & API Gateway integration
 │   └── amplify.yml                # AWS Amplify Hosting build specification
-└── backend/                       # Serverless Lambda function
-    ├── README.md                  # Lambda runtime & environment configuration instructions
-    ├── .env.example               # Environment variable reference template
-    ├── index.js                   # Node.js ESM handler (DynamoDB DocumentClient)
+└── backend/                       # Serverless Lambda microservices
+    ├── README.md                  # Microservices architecture & environment configuration
+    ├── .env.example               # Environment variable reference
     ├── package.json               # Backend dependencies manifest
-    └── layer/                     # Lambda Layer dependencies (@aws-sdk/client-dynamodb)
-        ├── README.md              # Layer manual packaging instructions
-        └── package.json           # Layer dependency manifest
+    ├── layer/                     # Shared Lambda Layer dependencies (DynamoDB & SNS SDKs)
+    │   ├── README.md              # Layer manual packaging instructions
+    │   └── package.json           # Layer dependency manifest
+    ├── health/                    # wa-health-lambda
+    │   └── index.js               # Health check probe
+    ├── get-attendees/             # wa-get-attendees-lambda
+    │   └── index.js               # Attendees reader & statistics computer
+    └── post-attendee/             # wa-post-attendee-lambda
+        └── index.js               # RSVP recorder & SNS event notification trigger
 ```
 
 ---
@@ -53,12 +59,12 @@ wedding-reception-cloud-app/
 
 All endpoints (except `/health`) support preflight CORS options (`OPTIONS`).
 
-| Method | Endpoint | CORS | Description |
-|---|---|---|---|
-| `GET` | `/health` | `No` | Health check & service status (Direct/CLI) |
-| `GET` | `/attendees` | `Yes` | Retrieve list of confirmed attendees and live statistics |
-| `POST` | `/attendees` | `Yes` | Submit new attendance RSVP with guest details |
-| `OPTIONS` | `/attendees` | `Yes` | Preflight CORS handshake |
+| Method | Endpoint | CORS | Target Function / Integration | Description |
+|---|---|---|---|---|
+| `GET` | `/health` | `No` | `wa-health-lambda` | Health check & service status (Direct/CLI) |
+| `GET` | `/attendees` | `Yes` | `wa-get-attendees-lambda` | Retrieve list of confirmed attendees and live statistics |
+| `POST` | `/attendees` | `Yes` | `wa-post-attendee-lambda` | Submit new attendance RSVP & trigger SNS email notification |
+| `OPTIONS` | `/attendees` | `Yes` | *API Gateway Mock* | Preflight CORS handshake |
 
 #### Sample POST `/attendees` Request Payload:
 ```json

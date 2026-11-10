@@ -1,85 +1,64 @@
-# Wedding Attendance — Backend Lambda (`wa-lambda`)
+# Wedding Attendance — Backend Lambda Microservices
 
-This directory contains the **Node.js 24 ESM** serverless handler for the Wedding Attendance & RSVP Guestbook application.
-
----
-
-## 🔐 Lambda Environment Variables
-
-[`index.js`](index.js) enforces runtime environment validation via `process.env`. All required variables must be configured in **AWS Lambda Environment Variables** (**Configuration** -> **Environment variables**).
-
-The provided [`.env.example`](.env.example) reference is **intentionally incomplete**:
-
-```dotenv
-TABLE_NAME=
-```
-
-Inspect [`index.js`](index.js) to identify all required environment variable keys and configure their appropriate values in the AWS Lambda Console:
-- `TABLE_NAME`: Target DynamoDB table name (e.g., `wa-dynamodb` or `wa-attendance-table`).
-- `TICKET_PREFIX`: Prefix for guest registration ticket code (e.g., `WA`).
+This directory contains the serverless compute handlers for the Wedding Attendance & RSVP application, decomposed into three single-purpose microservice functions for modern cloud reliability.
 
 ---
 
-## ⚙️ Lambda General Configuration
+## 🏗️ Microservice Architecture
 
-Configure these parameters under **Configuration** -> **General configuration**:
+Each Lambda function handles a specific API Gateway route and HTTP method:
 
-| Setting | Recommended Value |
-|---|---|
-| **Runtime** | `Node.js 20.x` or `Node.js 24.x` |
-| **Handler** | `index.handler` |
-| **Memory** | `256 MB` |
-| **Timeout** | `15 sec` |
-
----
-
-## 📦 Required `package.json` for ES Modules
-
-Since [`index.js`](index.js) uses modern ECMAScript Module (ESM) syntax (`import`/`export`), AWS Lambda requires a [`package.json`](package.json) file in the root function directory (`/var/task/`) specifying `"type": "module"`:
-
-```json
-{
-  "name": "wa-lambda",
-  "version": "1.0.0",
-  "type": "module"
-}
-```
-
-> **Important**: If you deploy `index.js` alone without `package.json`, Node.js defaults to CommonJS and will fail with `SyntaxError: Cannot use import statement outside a module`. Ensure both `index.js` and `package.json` are deployed together to the Lambda function.
+| Function Name | Directory | Route | Method | Required Env Vars | Attached Layer |
+|---|---|---|---|---|---|
+| **`wa-health-lambda`** | [`health/`](health/) | `/health` | `GET` | *None* | *None (zero external dependencies)* |
+| **`wa-get-attendees-lambda`** | [`get-attendees/`](get-attendees/) | `/attendees` | `GET` | `TABLE_NAME` | `wa-layer` (DynamoDB SDK) |
+| **`wa-post-attendee-lambda`** | [`post-attendee/`](post-attendee/) | `/attendees` | `POST` | `TABLE_NAME`, `TICKET_PREFIX`, `TOPIC_ARN` | `wa-layer` (DynamoDB & SNS SDK) |
 
 ---
 
-## 🧪 Lambda Console Test Events (Mock JSON)
+## 📁 Directory Structure
 
-Test your Lambda function directly inside the **AWS Lambda Console** (under the **Test** tab) using these standard API Gateway Lambda Proxy mock events:
-
-### 1. Health Check (`GET /health`)
-Verify configuration and environment variable loading without invoking DynamoDB:
-```json
-{
-  "httpMethod": "GET",
-  "path": "/health"
-}
+```text
+backend/
+├── README.md                      # Backend microservices guide
+├── .env.example                   # Environment variable reference
+├── package.json                   # Shared root package manifest
+├── layer/                         # Shared AWS SDK Layer (@aws-sdk/client-dynamodb, @aws-sdk/client-sns)
+│   ├── README.md                  # Layer packaging guide
+│   └── package.json               # Layer dependencies manifest
+├── health/                        # wa-health-lambda
+│   └── index.js                   # Pure Node.js health probe
+├── get-attendees/                 # wa-get-attendees-lambda
+│   └── index.js                   # Scans DynamoDB & calculates attendance statistics
+└── post-attendee/                 # wa-post-attendee-lambda
+    └── index.js                   # Persists RSVP to DynamoDB & triggers SNS notification
 ```
 
-### 2. Submit Attendance RSVP (`POST /attendees`)
-Verify database write operations (`PutCommand`) and ticket generation:
-```json
-{
-  "httpMethod": "POST",
-  "path": "/attendees",
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "body": "{\"name\":\"Arya & Partner\",\"relationship\":\"Family\",\"attendanceStatus\":\"Attending\",\"pax\":2,\"wishes\":\"Congratulations and best wishes for a wonderful life together!\"}"
-}
-```
+---
 
-### 3. Retrieve Attendees & Summary Statistics (`GET /attendees`)
-Verify database read operations (`ScanCommand`) and statistical calculations:
-```json
-{
-  "httpMethod": "GET",
-  "path": "/attendees"
-}
-```
+## 🔐 Environment Variables Configuration
+
+Configure the required variables per function in the **AWS Lambda Console** (**Configuration** -> **Environment variables**):
+
+### 1. `wa-health-lambda`
+- No custom environment variables required.
+
+### 2. `wa-get-attendees-lambda`
+- `TABLE_NAME`: Target DynamoDB table name (e.g., `wa-attendance-table`).
+
+### 3. `wa-post-attendee-lambda`
+- `TABLE_NAME`: Target DynamoDB table name (e.g., `wa-attendance-table`).
+- `TICKET_PREFIX`: Prefix for generated guest tickets (e.g., `WA`).
+- `TOPIC_ARN`: *(Optional / Bonus)* Target Amazon SNS Topic ARN (e.g., `arn:aws:sns:us-east-1:123456789012:wa-rsvp-topic`) to receive real-time email alerts whenever a new guest RSVP is confirmed.
+
+*(Note: `AWS_REGION` is automatically provided by the Lambda runtime).*
+
+---
+
+## ⚙️ Function Runtime Settings
+
+All functions use standard AWS Lambda configuration:
+- **Runtime**: `Node.js 20.x` or `Node.js 24.x`
+- **Architecture**: `x86_64`
+- **Handler**: `index.handler`
+- **Execution Role**: Use pre-configured `LabRole`

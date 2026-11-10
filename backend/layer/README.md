@@ -1,6 +1,6 @@
 # AWS Lambda Layer — `wa-layer`
 
-This directory provides the dependency manifest (`package.json`) required to package the AWS Lambda Layer (`wa-layer`) for `wa-lambda`.
+This directory provides the dependency manifest (`package.json`) required to package the shared AWS Lambda Layer (`wa-layer`) for `wa-get-attendees-lambda` and `wa-post-attendee-lambda`.
 
 ---
 
@@ -14,7 +14,8 @@ wa-layer.zip
     ├── package.json
     └── node_modules/
         ├── @aws-sdk/client-dynamodb/
-        └── @aws-sdk/lib-dynamodb/
+        ├── @aws-sdk/lib-dynamodb/
+        └── @aws-sdk/client-sns/
 ```
 
 ---
@@ -51,4 +52,5 @@ Participants must manually construct the layer archive according to AWS Lambda r
    - In AWS Lambda Console, navigate to **Layers** -> **Create layer**.
    - **Name**: `wa-layer`
    - **Compatible runtimes**: `Node.js 20.x`, `Node.js 24.x`
-   - Upload `wa-layer.zip` and attach the created layer version to `wa-lambda`.
+   - Upload `wa-layer.zip` and attach the created layer version to `wa-get-attendees-lambda` and `wa-post-attendee-lambda`.
+   *(Note: `wa-health-lambda` does not require this layer since it has zero external dependencies).*
