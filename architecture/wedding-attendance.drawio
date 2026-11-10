@@ -23,10 +23,10 @@
                     <mxGeometry x="38" y="250" width="38" height="38" as="geometry"/>
                 </mxCell>
                 <mxCell id="amplify" value="&lt;b&gt;wa-amplify&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#545B64&quot; style=&quot;font-size: 9.5px;&quot;&gt;Amplify Hosting&lt;/font&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#FF9900;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=6;align=center;html=1;fontSize=10.5;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.amplify;" parent="1" vertex="1">
-                    <mxGeometry x="320" y="210" width="55" height="55" as="geometry"/>
+                    <mxGeometry x="320" y="241.5" width="55" height="55" as="geometry"/>
                 </mxCell>
                 <mxCell id="apigw" value="&lt;b&gt;wa-api-gateway&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#545B64&quot; style=&quot;font-size: 9.5px;&quot;&gt;REST API&lt;/font&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#8C4FFF;strokeColor=none;dashed=0;verticalLabelPosition=top;verticalAlign=bottom;spacingBottom=8;align=center;html=1;fontSize=10.5;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.api_gateway;" parent="1" vertex="1">
-                    <mxGeometry x="440" y="240" width="55" height="55" as="geometry"/>
+                    <mxGeometry x="470" y="240" width="55" height="55" as="geometry"/>
                 </mxCell>
                 <mxCell id="lambda_health" value="&lt;b&gt;wa-health-lambda&lt;/b&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#ED7100;strokeColor=none;dashed=0;verticalLabelPosition=top;verticalAlign=bottom;spacingBottom=6;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.lambda_function;" parent="1" vertex="1">
                     <mxGeometry x="670" y="145" width="50" height="50" as="geometry"/>
@@ -74,16 +74,19 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge_get_ddb" value="Get" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#0073BB;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" parent="1" source="lambda_get" target="dynamodb" edge="1">
-                    <mxGeometry relative="1" as="geometry">
+                <mxCell id="edge_get_ddb" value="Read" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#0073BB;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" parent="1" source="lambda_get" target="dynamodb" edge="1">
+                    <mxGeometry x="0.0096" relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="750" y="268"/>
                             <mxPoint x="750" y="565"/>
                         </Array>
+                        <mxPoint as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge_post_ddb" value="Put" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#0073BB;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" source="lambda_post" target="dynamodb" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="edge_post_ddb" value="Create" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#0073BB;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" parent="1" source="lambda_post" target="dynamodb" edge="1">
+                    <mxGeometry x="-0.0667" y="-5" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="edge_post_sns" value="Publish" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E7157B;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#E7157B;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0.5;entryY=0;" parent="1" source="lambda_post" target="sns_topic" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -101,7 +104,7 @@
                 <mxCell id="edge_iam_binding" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#545B64;strokeWidth=1.4;dashed=1;exitX=0.5;exitY=0;entryX=0.15;entryY=1;" parent="1" source="iam" target="tier_compute" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge_cw_health" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" edge="1" parent="1" source="lambda_health" target="cloudwatch">
+                <mxCell id="edge_cw_health" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" parent="1" source="lambda_health" target="cloudwatch" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="920" y="170"/>
@@ -109,7 +112,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge_cw_post" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" edge="1" parent="1" source="lambda_post" target="cloudwatch">
+                <mxCell id="edge_cw_post" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" parent="1" source="lambda_post" target="cloudwatch" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="920" y="365"/>

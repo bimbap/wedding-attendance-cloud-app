@@ -16,6 +16,7 @@ Reads confirmed wedding attendees from Amazon DynamoDB, computes live attendance
 | **Timeout** | `10 seconds` | Accommodates DynamoDB network latency & cold starts |
 | **Execution Role** | `LabRole` | Must have DynamoDB read permissions |
 | **Attached Layer** | `wa-layer` | Required for `@aws-sdk/client-dynamodb` & `@aws-sdk/lib-dynamodb` |
+| **Attached Package** | `package.json` | Input the package with `index.js` in lambda explorer for Node.js runtime |
 
 ---
 

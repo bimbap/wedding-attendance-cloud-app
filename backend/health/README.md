@@ -17,6 +17,7 @@ A lightweight, zero-dependency health check probe executed on API Gateway `GET /
 | **Execution Role** | `LabRole` | Pre-configured AWS Academy role |
 | **Attached Layer** | *None* | Zero external dependencies (uses native Node.js) |
 | **Environment Variables** | *None* | No custom variables needed |
+| **Attached Package** | `package.json` | Input the package with `index.js` in lambda explorer for Node.js runtime |
 
 ---
 

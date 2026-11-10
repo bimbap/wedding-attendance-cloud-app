@@ -16,6 +16,7 @@ Validates guest RSVP payloads, generates a unique ticket ID (`WA-XXXXXX`), write
 | **Timeout** | `10 seconds` | Accommodates DynamoDB write + SNS publish network roundtrips |
 | **Execution Role** | `LabRole` | Must have DynamoDB write and SNS publish permissions |
 | **Attached Layer** | `wa-layer` | Required for DynamoDB SDK & `@aws-sdk/client-sns` |
+| **Attached Package** | `package.json` | Input the package with `index.js` in lambda explorer for Node.js runtime |
 
 ---
 
