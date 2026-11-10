@@ -44,7 +44,7 @@
                     <mxGeometry x="980" y="243" width="50" height="50" as="geometry"/>
                 </mxCell>
                 <mxCell id="iam" value="&lt;b&gt;LabRole&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#545B64&quot; style=&quot;font-size: 9.5px;&quot;&gt;IAM Role&lt;/font&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#DD344C;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=6;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.role;" parent="1" vertex="1">
-                    <mxGeometry x="340" y="540" width="50" height="50" as="geometry"/>
+                    <mxGeometry x="380" y="545" width="50" height="50" as="geometry"/>
                 </mxCell>
                 <mxCell id="dynamodb" value="&lt;b&gt;wa-attendance-table&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#545B64&quot; style=&quot;font-size: 9.5px;&quot;&gt;DynamoDB&lt;/font&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#0073BB;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=6;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.dynamodb;" parent="1" vertex="1">
                     <mxGeometry x="670" y="540" width="50" height="50" as="geometry"/>
