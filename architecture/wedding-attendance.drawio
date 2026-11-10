@@ -14,7 +14,7 @@
                     <mxGeometry x="275" y="115" width="895" height="325" as="geometry"/>
                 </mxCell>
                 <mxCell id="tier_storage" value="Storage &amp; Integration Tier" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;dashed=1;strokeColor=#0073BB;strokeWidth=1.5;fillColor=#F6F9FD;verticalAlign=top;align=left;spacingLeft=18;spacingTop=8;fontSize=11;fontStyle=1;fontColor=#0073BB;" parent="1" vertex="1">
-                    <mxGeometry x="275" y="470" width="895" height="200" as="geometry"/>
+                    <mxGeometry x="272.5" y="470" width="895" height="200" as="geometry"/>
                 </mxCell>
                 <mxCell id="ext_user" value="&lt;b&gt;User&lt;/b&gt;" style="rounded=1;arcSize=10;whiteSpace=wrap;html=1;fillColor=#EBF3FF;strokeColor=#0073BB;strokeWidth=1.5;fontColor=#232F3E;fontSize=11;align=left;spacingLeft=52;shadow=1;" parent="1" vertex="1">
                     <mxGeometry x="30" y="243" width="165" height="52" as="geometry"/>
@@ -52,18 +52,8 @@
                 <mxCell id="email_notif" value="&lt;b&gt;Email Alerts&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#545B64&quot; style=&quot;font-size: 9.5px;&quot;&gt;Organizers&lt;/font&gt;" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#E7157B;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;spacingTop=6;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.email_notification;" parent="1" vertex="1">
                     <mxGeometry x="1000" y="540" width="50" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="flow_user_amplify" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF9900;strokeWidth=1.8;exitX=1;exitY=0.35;entryX=0;entryY=0.5;" parent="1" source="ext_user" target="amplify" edge="1">
+                <mxCell id="flow_user_amplify" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF9900;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#FF9900;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="ext_user" target="amplify" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="flow_user_apigw" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#0073BB;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.75;entryX=0;entryY=0.5;" parent="1" source="ext_user" target="apigw" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="235" y="282"/>
-                            <mxPoint x="235" y="325"/>
-                            <mxPoint x="405" y="325"/>
-                            <mxPoint x="405" y="267"/>
-                        </Array>
-                    </mxGeometry>
                 </mxCell>
                 <mxCell id="edge_apigw_health" value="GET /health" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#8C4FFF;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#8C4FFF;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.2;entryX=0;entryY=0.5;" parent="1" source="apigw" target="lambda_health" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -111,7 +101,7 @@
                 <mxCell id="edge_iam_binding" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#545B64;strokeWidth=1.4;dashed=1;exitX=0.5;exitY=0;entryX=0.15;entryY=1;" parent="1" source="iam" target="tier_compute" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge_cw_health" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" parent="1" source="lambda_health" target="cloudwatch" edge="1">
+                <mxCell id="edge_cw_health" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" edge="1" parent="1" source="lambda_health" target="cloudwatch">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="920" y="170"/>
@@ -119,13 +109,16 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge_cw_post" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" parent="1" source="lambda_post" target="cloudwatch" edge="1">
+                <mxCell id="edge_cw_post" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#DD344C;strokeWidth=1.3;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" edge="1" parent="1" source="lambda_post" target="cloudwatch">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
                             <mxPoint x="920" y="365"/>
                             <mxPoint x="920" y="280"/>
                         </Array>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="flow_amplify_apigw" value="REST API" style="edgeStyle=orthogonalEdgeStyle;rounded=1;arcSize=6;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0073BB;strokeWidth=1.8;fontSize=9;fontStyle=1;fontColor=#0073BB;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" parent="1" source="amplify" target="apigw" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
