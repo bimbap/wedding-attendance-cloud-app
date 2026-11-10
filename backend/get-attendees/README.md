@@ -62,3 +62,4 @@ Reads confirmed wedding attendees from Amazon DynamoDB, computes live attendance
   ]
 }
 ```
+

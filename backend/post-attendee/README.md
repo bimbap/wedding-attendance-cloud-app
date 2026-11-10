@@ -71,3 +71,4 @@ Validates guest RSVP payloads, generates a unique ticket ID (`WA-XXXXXX`), write
   }
 }
 ```
+

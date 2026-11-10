@@ -38,3 +38,4 @@ A lightweight, zero-dependency health check probe executed on API Gateway `GET /
   "timestamp": "2026-11-10T11:00:00.000Z"
 }
 ```
+
