@@ -9,11 +9,11 @@ Reads confirmed wedding attendees from Amazon DynamoDB, computes live attendance
 | Parameter | Recommended Specification | Notes |
 |---|---|---|
 | **Function Name** | `wa-get-attendees-lambda` | Standard competition resource naming |
-| **Runtime** | `Node.js 20.x` or `Node.js 24.x` | Native ESM module |
+| **Runtime** | `Node.js 20.x`, `Node.js 24.x`, or `Node.js 26.x` | Native ESM module |
 | **Handler** | `index.handler` | Points to [`index.js`](index.js) |
 | **Architecture** | `x86_64` | Standard x86 architecture |
-| **Memory Allocation** | `128 MB` | Optimal for batch scanning up to 100+ items |
-| **Timeout** | `10 seconds` | Accommodates DynamoDB network latency & cold starts |
+| **Memory Allocation** | `256 MB` | Optimal for batch scanning up to 100+ items |
+| **Timeout** | `15 seconds` | Accommodates DynamoDB network latency & cold starts |
 | **Execution Role** | `LabRole` | Must have DynamoDB read permissions |
 | **Attached Layer** | `wa-layer` | Required for `@aws-sdk/client-dynamodb` & `@aws-sdk/lib-dynamodb` |
 | **Attached Package** | `package.json` | Input the package with `index.js` in lambda explorer for Node.js runtime |

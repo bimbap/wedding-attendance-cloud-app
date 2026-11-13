@@ -1,6 +1,6 @@
 /**
  * AWS Lambda Handler — wa-get-attendees-lambda
- * Runtime: Node.js 20.x / 24.x ESM
+ * Runtime: Node.js 20.x / 24.x / 26.x ESM
  * Route: GET /attendees
  * 
  * Required Environment Variables (AWS Lambda Console):

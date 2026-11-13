@@ -9,11 +9,11 @@ A lightweight, zero-dependency health check probe executed on API Gateway `GET /
 | Parameter | Recommended Specification | Notes |
 |---|---|---|
 | **Function Name** | `wa-health-lambda` | Standard competition resource naming |
-| **Runtime** | `Node.js 20.x` or `Node.js 24.x` | Native ESM module |
+| **Runtime** | `Node.js 20.x`, `Node.js 24.x`, or `Node.js 26.x` | Native ESM module |
 | **Handler** | `index.handler` | Points to [`index.js`](index.js) |
 | **Architecture** | `x86_64` | Standard x86 architecture |
 | **Memory Allocation** | `128 MB` | Optimal memory footprint |
-| **Timeout** | `5 seconds` | Lightweight in-memory execution (< 50 ms) |
+| **Timeout** | `10 seconds` | Lightweight in-memory execution (< 50 ms) |
 | **Execution Role** | `LabRole` | Pre-configured AWS Academy role |
 | **Attached Layer** | *None* | Zero external dependencies (uses native Node.js) |
 | **Environment Variables** | *None* | No custom variables needed |

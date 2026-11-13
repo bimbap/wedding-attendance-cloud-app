@@ -9,11 +9,11 @@ Validates guest RSVP payloads, generates a unique ticket ID (`WA-XXXXXX`), write
 | Parameter | Recommended Specification | Notes |
 |---|---|---|
 | **Function Name** | `wa-post-attendee-lambda` | Standard competition resource naming |
-| **Runtime** | `Node.js 20.x` or `Node.js 24.x` | Native ESM module |
+| **Runtime** | `Node.js 20.x`, `Node.js 24.x`, or `Node.js 26.x` | Native ESM module |
 | **Handler** | `index.handler` | Points to [`index.js`](index.js) |
 | **Architecture** | `x86_64` | Standard x86 architecture |
-| **Memory Allocation** | `128 MB` | Optimal for document validation & write ops |
-| **Timeout** | `10 seconds` | Accommodates DynamoDB write + SNS publish network roundtrips |
+| **Memory Allocation** | `256 MB` | Optimal for document validation & write ops |
+| **Timeout** | `15 seconds` | Accommodates DynamoDB write + SNS publish network roundtrips |
 | **Execution Role** | `LabRole` | Must have DynamoDB write and SNS publish permissions |
 | **Attached Layer** | `wa-layer` | Required for DynamoDB SDK & `@aws-sdk/client-sns` |
 | **Attached Package** | `package.json` | Input the package with `index.js` in lambda explorer for Node.js runtime |

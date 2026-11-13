@@ -51,6 +51,6 @@ Participants must manually construct the layer archive according to AWS Lambda r
 4. **Publish & Attach to Lambda**:
    - In AWS Lambda Console, navigate to **Layers** -> **Create layer**.
    - **Name**: `wa-layer`
-   - **Compatible runtimes**: `Node.js 20.x`, `Node.js 24.x`
+   - **Compatible runtimes**: `Node.js 20.x`, `Node.js 24.x`, `Node.js 26.x`
    - Upload `wa-layer.zip` and attach the created layer version to `wa-get-attendees-lambda` and `wa-post-attendee-lambda`.
    *(Note: `wa-health-lambda` does not require this layer since it has zero external dependencies).*

@@ -1,6 +1,8 @@
 {
   "name": "wa-package-lambda",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  }
 }
-

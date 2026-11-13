@@ -61,7 +61,7 @@ Configure the required variables per function in the **AWS Lambda Console** (**C
 ## ⚙️ Function Runtime & Performance Settings
 
 All functions use standard AWS Lambda configuration:
-- **Runtime**: `Node.js 20.x` or `Node.js 24.x` (ESM mode)
+- **Runtime**: `Node.js 20.x`, `Node.js 24.x`, or `Node.js 26.x` (ESM mode)
 - **Architecture**: `x86_64`
 - **Handler**: `index.handler`
 - **Memory Allocation**: `128 MB`
