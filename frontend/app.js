@@ -60,14 +60,82 @@ const btnSaveConfig = document.getElementById("btn-save-config");
 const btnCancelConfig = document.getElementById("btn-cancel-config");
 const btnCloseTicket = document.getElementById("btn-close-ticket");
 const btnRefresh = document.getElementById("btn-refresh");
+const mainLayout = document.getElementById("main-layout");
+const sectionForm = document.getElementById("section-form");
+const sectionWishes = document.getElementById("section-wishes");
+const navLinks = document.querySelectorAll(".spa-nav-link");
 
 // Initialize
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  setupSpaRouter();
   setupPaxButtons();
   setupConfigModal();
   updateApiStatusUi();
-  fetchAttendees();
+  applyRoute(window.location.pathname);
+  await fetchAttendees();
+  applyRoute(window.location.pathname);
 });
+
+// 0. Client-Side SPA Router (supports /, /rsvp, /guestbook, /ticket/:guestId)
+function setupSpaRouter() {
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("[data-spa-link]");
+    if (!link) return;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    const targetPath = link.getAttribute("href") || "/";
+    navigateTo(targetPath);
+  });
+
+  window.addEventListener("popstate", () => {
+    applyRoute(window.location.pathname);
+  });
+}
+
+function navigateTo(pathname) {
+  const cleanPath = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  if (window.location.pathname !== cleanPath) {
+    window.history.pushState({}, "", cleanPath);
+  }
+  applyRoute(cleanPath);
+}
+
+function applyRoute(rawPathname) {
+  const path = (rawPathname || "/").replace(/\/+$/, "") || "/";
+  const ticketMatch = path.match(/^\/ticket\/([A-Za-z0-9_-]+)$/);
+
+  let activeTab = "/";
+  if (path === "/rsvp") {
+    activeTab = "/rsvp";
+    sectionForm.style.display = "";
+    sectionWishes.style.display = "none";
+    mainLayout.classList.add("single-view");
+    ticketModal.classList.remove("active");
+  } else if (path === "/guestbook" || ticketMatch) {
+    activeTab = "/guestbook";
+    sectionForm.style.display = "none";
+    sectionWishes.style.display = "";
+    mainLayout.classList.add("single-view");
+  } else {
+    activeTab = "/";
+    sectionForm.style.display = "";
+    sectionWishes.style.display = "";
+    mainLayout.classList.remove("single-view");
+    ticketModal.classList.remove("active");
+  }
+
+  navLinks.forEach((el) => {
+    el.classList.toggle("active", el.dataset.route === activeTab);
+  });
+
+  if (ticketMatch) {
+    const guestId = ticketMatch[1];
+    const matched = state.attendees.find((a) => String(a.guestId).toLowerCase() === guestId.toLowerCase());
+    if (matched) {
+      showTicketModal(matched, false);
+    }
+  }
+}
 
 // 1. PAX Button Selector
 function setupPaxButtons() {
@@ -116,6 +184,9 @@ function setupConfigModal() {
 
   btnCloseTicket.addEventListener("click", () => {
     ticketModal.classList.remove("active");
+    if (window.location.pathname.startsWith("/ticket/")) {
+      navigateTo("/guestbook");
+    }
   });
 
   btnRefresh.addEventListener("click", () => {
@@ -200,6 +271,11 @@ function renderWishes(list) {
       month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"
     }) : "Just now";
 
+    const guestId = item.guestId || "";
+    const ticketLink = guestId
+      ? `<a href="/ticket/${encodeURIComponent(guestId)}" class="btn-ticket-link" data-spa-link>Pass: ${escapeHtml(guestId)}</a>`
+      : "";
+
     return `
       <div class="wish-item">
         <div class="wish-meta">
@@ -207,7 +283,10 @@ function renderWishes(list) {
           <span class="status-chip ${statusClass}">${statusLabel}</span>
         </div>
         <p class="wish-text">"${escapeHtml(item.wishes || 'Best wishes to the happy couple!')}"</p>
-        <span class="wish-time">${dateStr}</span>
+        <div class="wish-footer">
+          <span class="wish-time">${dateStr}</span>
+          ${ticketLink}
+        </div>
       </div>
     `;
   }).join("");
@@ -288,13 +367,19 @@ rsvpForm.addEventListener("submit", async (e) => {
   }
 });
 
-function showTicketModal(ticket) {
+function showTicketModal(ticket, updateUrl = true) {
   document.getElementById("modal-ticket-code").textContent = ticket.guestId;
   document.getElementById("modal-guest-name").textContent = ticket.name;
   document.getElementById("modal-guest-status").textContent = ticket.attendanceStatus;
   document.getElementById("modal-guest-pax").textContent = `${ticket.pax} Guests`;
   document.getElementById("modal-guest-time").textContent = new Date(ticket.createdAt).toLocaleString("en-US");
 
+  if (updateUrl && ticket.guestId) {
+    const ticketPath = `/ticket/${encodeURIComponent(ticket.guestId)}`;
+    if (window.location.pathname !== ticketPath) {
+      window.history.pushState({}, "", ticketPath);
+    }
+  }
   ticketModal.classList.add("active");
 }
 

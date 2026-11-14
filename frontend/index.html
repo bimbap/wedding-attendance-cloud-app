@@ -4,16 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Guestbook & Attendance RSVP — The Wedding of Arya & Sarah</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <div class="page-wrapper">
     <!-- Top Navigation & API Config Trigger -->
     <header class="header-bar">
-      <div class="brand">
+      <a href="/" class="brand" data-spa-link>
         <span class="wedding-monogram">A & S</span>
         <span class="brand-title">Wedding Reception</span>
-      </div>
+      </a>
+      <nav class="spa-nav" aria-label="Primary navigation">
+        <a href="/" class="spa-nav-link active" data-spa-link data-route="/">Overview</a>
+        <a href="/rsvp" class="spa-nav-link" data-spa-link data-route="/rsvp">RSVP</a>
+        <a href="/guestbook" class="spa-nav-link" data-spa-link data-route="/guestbook">Guestbook</a>
+      </nav>
       <div class="api-status-wrapper">
         <button class="btn-config" id="btn-open-config" title="Configure API Gateway">
           <span class="pulse-dot" id="api-status-dot"></span>
@@ -53,9 +58,9 @@
     </section>
 
     <!-- Main Content: Form & Wishes Wall -->
-    <main class="main-layout">
+    <main class="main-layout" id="main-layout">
       <!-- Left Column: RSVP Form -->
-      <section class="card form-card">
+      <section class="card form-card" id="section-form">
         <div class="card-header">
           <h2>Attendance RSVP Form</h2>
           <p>Please confirm your attendance to assist us in organizing seating and catering.</p>
@@ -113,7 +118,7 @@
       </section>
 
       <!-- Right Column: Live Wishes Wall -->
-      <section class="card wishes-card">
+      <section class="card wishes-card" id="section-wishes">
         <div class="card-header wishes-header">
           <div>
             <h2>Digital Guestbook & Wishes</h2>
@@ -191,6 +196,6 @@
     </footer>
   </div>
 
-  <script src="app.js"></script>
+  <script src="/app.js"></script>
 </body>
 </html>
