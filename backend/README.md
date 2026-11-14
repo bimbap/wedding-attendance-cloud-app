@@ -67,6 +67,6 @@ All functions use standard AWS Lambda configuration:
 - **Memory Allocation**: `128 MB`
 - **Timeout**:
   - `wa-health-lambda`: `5 seconds`
-  - `wa-get-attendees-lambda`: `10 seconds`
-  - `wa-post-attendee-lambda`: `10 seconds`
+  - `wa-get-attendees-lambda`: `15 seconds`
+  - `wa-post-attendee-lambda`: `15 seconds`
 - **Execution Role**: Use pre-configured `LabRole`

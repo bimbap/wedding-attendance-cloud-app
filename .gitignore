@@ -18,3 +18,11 @@ Thumbs.db
 # Ignore internal module specs / notes except README files
 *.md
 !README.md
+
+# Python & Grading Artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+grading/results/
+~$*.xlsx
